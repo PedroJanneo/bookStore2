@@ -8,7 +8,6 @@ Este projeto é uma API desenvolvida com Node.js, Express e PostgreSQL, focada e
 - Express
 - PostgreSQL
 - bcryptjs (para criptografia de senhas)
-- dotenv (para variáveis de ambiente)
 - body-parser (para processamento de requisições)
 
 ## Endpoints
@@ -145,6 +144,13 @@ Este projeto é uma API desenvolvida com Node.js, Express e PostgreSQL, focada e
 
 ---
 
+## Melhorias
+- **Adicionar transações**: Implementação das funcionalidades para registrar e gerenciar transações no sistema.
+- **Adicionar login**: Implementação de um sistema de autenticação de usuários, permitindo o login seguro.
+
+### Complemento:
+- **Este repositório contém tanto o back-end quanto o front-end**: O código do back-end (servidor, rotas, controle de dados) e do front-end (interface com o usuário) estão ambos incluídos neste repositório.
+
 ## Como rodar o projeto
 
 1. Clone este repositório:
@@ -162,7 +168,7 @@ Este projeto é uma API desenvolvida com Node.js, Express e PostgreSQL, focada e
    npx ts-node src/app.ts
    ```
 
-5. A API estará rodando em `http://localhost:3000`.
+4. A API estará rodando em `http://localhost:3000`.
 
 ---
 
@@ -177,5 +183,6 @@ Sinta-se à vontade para fazer um fork deste repositório e enviar pull requests
 Este projeto é licenciado sob a MIT License - veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
 ---
+```
 
-Com essa adição, o README agora inclui todas as informações sobre os recursos de transações, detalhando como criar e listar transações. Caso precise de mais ajustes ou funcionalidades, é só avisar! 🚀
+Agora, o `README.md` está atualizado com as melhorias e complementos mencionados. Se precisar de mais ajustes, é só me avisar!
