@@ -1,0 +1,78 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #f4f4f9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+h1 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+form {
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+input {
+  padding: 12px;
+  margin: 10px 0;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+button {
+  padding: 12px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+#bookList,
+#userList {
+  margin-top: 20px;
+  width: 100%;
+  max-width: 400px;
+}
+
+#bookList div,
+#userList div {
+  background-color: #fff;
+  padding: 12px;
+  border: 1px solid #ddd;
+  margin: 10px 0;
+  border-radius: 4px;
+}
+
+#bookList div strong,
+#userList div strong {
+  color: #333;
+  font-size: 16px;
+}
+
+#bookList div span,
+#userList div span {
+  color: #777;
+  font-size: 14px;
+}

@@ -1,4 +1,3 @@
-// src/services/UserService.ts
 import bcrypt from 'bcrypt';
 import { UserRepository } from '../repositories/UserRepository';
 import { User } from '../models/UserModel';
@@ -28,5 +27,10 @@ export class UserService {
   // Método para validar a senha
   async validatePassword(storedPasswordHash: string, password: string): Promise<boolean> {
     return bcrypt.compare(password, storedPasswordHash);
+  }
+
+  // Adicionado o método getAllUsers
+  async getAllUsers(): Promise<User[]> {
+    return this.userRepository.getAllUsers();
   }
 }

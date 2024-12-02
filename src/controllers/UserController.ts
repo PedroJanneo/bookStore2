@@ -1,11 +1,26 @@
 import { Request, Response } from 'express';
 import { UserService } from '../services/UserService';
+import { User } from '../models/UserModel'; // Importe o tipo User
 
 export class UserController {
   private userService: UserService;
 
   constructor(userService: UserService) {
     this.userService = userService;
+  }
+
+  // Corrigido para usar o userService em vez de pool diretamente
+  async getAllUsers(req: Request, res: Response): Promise<void> {
+    try {
+      const users = await this.userService.getAllUsers();  // Chama o serviço para buscar os usuários
+      res.status(200).json(users);  // Retorna a lista de usuários
+    } catch (error) {
+      if (error instanceof Error) {
+        res.status(500).json({ message: 'Erro ao buscar usuários', error: error.message });
+      } else {
+        res.status(500).json({ message: 'Erro desconhecido ao buscar usuários' });
+      }
+    }
   }
 
   // Método para registrar um novo usuário

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API Front-end</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Cadastro de Usuário -->
+  <h1>Cadastro de Usuário</h1>
+  <form id="registerForm">
+    <input type="text" id="name" placeholder="Nome" required>
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="password" id="password" placeholder="Senha" required>
+    <button type="submit">Registrar</button>
+  </form>
+
+  <!-- Adicionar Livro -->
+  <h1>Adicionar Livro</h1>
+  <form id="bookForm">
+    <input type="text" id="title" placeholder="Título do Livro" required>
+    <input type="text" id="author" placeholder="Autor" required>
+    <input type="number" id="price" placeholder="Preço" step="0.01" required>
+    <button type="submit">Adicionar Livro</button>
+  </form>
+
+  <!-- Lista de Livros -->
+  <h1>Lista de Livros</h1>
+  <div id="bookList"></div>
+
+  <!-- Lista de Usuários -->
+  <h1>Lista de Usuários</h1>
+  <div id="userList"></div>
+
+  <!-- 
+  <h1>Registrar Transação</h1>
+  <form id="transactionForm">
+    <input type="text" id="userName" placeholder="Nome do Usuário" required>
+    <input type="text" id="bookTitle" placeholder="Título do Livro" required>
+    <input type="number" id="amount" placeholder="Quantidade" required>
+    <button type="submit">Registrar Transação</button>
+  </form>
+
+  <h1>Lista de Transações</h1>
+  <div id="transactionList"></div>
+  -->
+
+  <script src="script.js" defer></script>
+</body>
+</html>
