@@ -19,8 +19,20 @@ export class UserRepository {
 
   // Método para adicionar um novo usuário
   async addUser(name: string, email: string, passwordHash: string): Promise<User> {
-    const query = 'INSERT INTO users (name, email, passwordHash) VALUES ($1, $2, $3) RETURNING *';
-    const { rows } = await this.pool.query(query, [name, email, passwordHash]);
-    return rows[0]; // Retorna o usuário recém-criado
+    const query = `
+      INSERT INTO users (name, email, "passwordHash") 
+      VALUES ($1, $2, $3) 
+      RETURNING *;
+    `;
+
+    const values = [name, email, passwordHash];
+
+    try {
+      const result = await pool.query(query, values);
+      return result.rows[0]; // Retorna o registro inserido
+    } catch (error) {
+      console.error('Erro ao inserir o usuário no banco:', error);
+      throw error;
+    }
   }
 }

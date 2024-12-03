@@ -7,17 +7,15 @@ export class UserService {
 
   // Método para criar um novo usuário
   async createUser(name: string, email: string, password: string): Promise<User> {
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const salt = await bcrypt.genSalt(10);
+    const passwordHash = await bcrypt.hash(password, salt);
 
-    // Verifica se o e-mail já está cadastrado
-    const existingUser = await this.userRepository.getUserByEmail(email);
-    if (existingUser) {
-      throw new Error('Email already in use');
-    }
+    console.log('Hash gerado para senha:', passwordHash); // Log do hash gerado
 
-    // Cria o novo usuário no banco de dados
-    return this.userRepository.addUser(name, email, hashedPassword);
-  }
+    const user = await this.userRepository.addUser(name, email, passwordHash);
+    return user;
+}
+
 
   // Método para buscar um usuário por email
   async getUserByEmail(email: string): Promise<User | null> {

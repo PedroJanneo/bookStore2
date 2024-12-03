@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { UserService } from '../services/UserService';
 import { User } from '../models/UserModel'; // Importe o tipo User
+import bcrypt from 'bcryptjs';
 
 export class UserController {
   private userService: UserService;
@@ -25,15 +26,20 @@ export class UserController {
 
   // Método para registrar um novo usuário
   async register(req: Request, res: Response): Promise<void> {
-    const { name, email, password } = req.body;
-
+    const { name, email, password } = req.body; // Alterado para receber "password"
+  
     if (!name || !email || !password) {
       res.status(400).json({ message: 'Name, email, and password are required' });
       return;
     }
-
+  
     try {
-      const newUser = await this.userService.createUser(name, email, password);
+      // Gerar hash da senha
+      const salt = await bcrypt.genSalt(10);
+      const passwordHash = await bcrypt.hash(password, salt);
+  
+      // Criar o usuário com o hash da senha
+      const newUser = await this.userService.createUser(name, email, passwordHash);
       res.status(201).json(newUser);
     } catch (error) {
       if (error instanceof Error) {
