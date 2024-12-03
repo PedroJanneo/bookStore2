@@ -1,6 +1,6 @@
-# Projeto de API - Users, Books e Transactions
+# Projeto de API - Users e Books
 
-Este projeto é uma API desenvolvida com Node.js, Express e PostgreSQL, focada em três recursos principais: **Usuários**, **Livros** e **Transações**.
+Este projeto é uma API desenvolvida com Node.js, Express e PostgreSQL, focada em dois recursos principais: **Usuários** e **Livros**.
 
 ## Tecnologias utilizadas
 
@@ -91,63 +91,6 @@ Este projeto é uma API desenvolvida com Node.js, Express e PostgreSQL, focada e
 
 ---
 
-### **Transações**
-
-#### 1. Criar Transação
-- **Endpoint**: `POST /api/transactions`
-- **Descrição**: Registra uma nova transação entre um usuário e um livro.
-- **Body**:
-  ```json
-  {
-    "userId": 1,
-    "bookId": 1
-  }
-  ```
-- **Resposta**:
-  - Status 201:
-    ```json
-    {
-      "transactionId": 1,
-      "userId": 1,
-      "bookId": 1,
-      "transactionDate": "2024-11-29T12:00:00Z"
-    }
-    ```
-  - Status 400 (se faltar algum campo):
-    ```json
-    {
-      "message": "UserId and BookId are required"
-    }
-    ```
-
-#### 2. Listar Transações
-- **Endpoint**: `GET /api/transactions`
-- **Descrição**: Retorna todas as transações registradas.
-- **Resposta**:
-  - Status 200:
-    ```json
-    [
-      {
-        "transactionId": 1,
-        "userId": 1,
-        "bookId": 1,
-        "transactionDate": "2024-11-29T12:00:00Z"
-      },
-      {
-        "transactionId": 2,
-        "userId": 2,
-        "bookId": 3,
-        "transactionDate": "2024-11-30T12:00:00Z"
-      }
-    ]
-    ```
-
----
-
-## Melhorias
-- **Adicionar transações**: Implementação das funcionalidades para registrar e gerenciar transações no sistema.
-- **Adicionar login**: Implementação de um sistema de autenticação de usuários, permitindo o login seguro.
-
 ### Complemento:
 - **Este repositório contém tanto o back-end quanto o front-end**: O código do back-end (servidor, rotas, controle de dados) e do front-end (interface com o usuário) estão ambos incluídos neste repositório.
 
@@ -163,12 +106,16 @@ Este projeto é uma API desenvolvida com Node.js, Express e PostgreSQL, focada e
    ```bash
    npm install
    ```
+
 3. Inicie o servidor:
    ```bash
    npx ts-node src/app.ts
    ```
 
 4. A API estará rodando em `http://localhost:3000`.
+
+5. Para a interface de front-end:
+   - Acesse os arquivos `index.html` e `login.html` para interagir com a API.
 
 ---
 
@@ -182,7 +129,6 @@ Sinta-se à vontade para fazer um fork deste repositório e enviar pull requests
 
 Este projeto é licenciado sob a MIT License - veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
----
-```
 
-Agora, o `README.md` está atualizado com as melhorias e complementos mencionados. Se precisar de mais ajustes, é só me avisar!
+
+
