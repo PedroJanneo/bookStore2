@@ -8,6 +8,17 @@
 </head>
 <body>
 
+  <!-- Login de Usuário -->
+  <h1>Login de Usuário</h1>
+  <form id="loginForm">
+    <input type="email" id="loginEmail" placeholder="Email" required>
+    <input type="password" id="loginPassword" placeholder="Senha" required>
+    <button type="submit">Entrar</button>
+  </form>
+
+  <!-- Botão de Logout -->
+  <button id="logoutButton" style="display: none;">Sair</button>
+
   <!-- Cadastro de Usuário -->
   <h1>Cadastro de Usuário</h1>
   <form id="registerForm">
@@ -33,19 +44,6 @@
   <!-- Lista de Usuários -->
   <h1>Lista de Usuários</h1>
   <div id="userList"></div>
-
-  <!-- 
-  <h1>Registrar Transação</h1>
-  <form id="transactionForm">
-    <input type="text" id="userName" placeholder="Nome do Usuário" required>
-    <input type="text" id="bookTitle" placeholder="Título do Livro" required>
-    <input type="number" id="amount" placeholder="Quantidade" required>
-    <button type="submit">Registrar Transação</button>
-  </form>
-
-  <h1>Lista de Transações</h1>
-  <div id="transactionList"></div>
-  -->
 
   <script src="script.js" defer></script>
 </body>

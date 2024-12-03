@@ -30,4 +30,6 @@ export function validateBookTitle(title: string): boolean {
     return false; // Título inválido
   }
   return true; // Título válido
+
+  
 }

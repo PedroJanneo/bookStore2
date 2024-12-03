@@ -18,119 +18,96 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
   alert(`Usuário registrado: ${data.name}`);
 });
 
-// Função para adicionar um livro
-document.getElementById('bookForm').addEventListener('submit', async (e) => {
+// Função para login do usuário
+document.getElementById('loginForm').addEventListener('submit', async (e) => {
   e.preventDefault();
 
-  const title = document.getElementById('title').value;
-  const author = document.getElementById('author').value;
-  const price = document.getElementById('price').value;
+  const email = document.getElementById('loginEmail').value;
+  const password = document.getElementById('loginPassword').value;
 
-  const response = await fetch('http://localhost:3000/api/books', {
+  const response = await fetch('http://localhost:3000/api/users/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ title, author, price }),
+    body: JSON.stringify({ email, password }),
   });
 
-  const data = await response.json();
-  alert(`Livro adicionado: ${data.title}`);
-  loadBooks(); // Carrega a lista de livros novamente
+  if (response.ok) {
+    const data = await response.json();
+    sessionStorage.setItem('token', data.token); // Salva o token no armazenamento da sessão
+    alert('Login bem-sucedido!');
+    toggleSessionControls(true);
+  } else {
+    const error = await response.json();
+    alert(error.message || 'Erro ao fazer login.');
+  }
 });
 
-// Função para listar todos os livros
+// Função para logout do usuário
+document.getElementById('logoutButton').addEventListener('click', () => {
+  sessionStorage.removeItem('token'); // Remove o token da sessão
+  alert('Logout realizado com sucesso!');
+  toggleSessionControls(false);
+});
+
+// Função para alternar controles de sessão
+function toggleSessionControls(isLoggedIn) {
+  document.getElementById('logoutButton').style.display = isLoggedIn ? 'block' : 'none';
+  document.getElementById('loginForm').style.display = isLoggedIn ? 'none' : 'block';
+  document.getElementById('registerForm').style.display = isLoggedIn ? 'none' : 'block';
+}
+
+// Função para carregar a lista de livros
 async function loadBooks() {
-  const response = await fetch('http://localhost:3000/api/books');
-  const books = await response.json();
-
-  const bookList = document.getElementById('bookList');
-  bookList.innerHTML = '';
-
-  books.forEach(book => {
-    const bookDiv = document.createElement('div');
-    bookDiv.innerHTML = `<strong>${book.title}</strong> - ${book.author} - R$ ${book.price}`;
-    bookList.appendChild(bookDiv);
+  const token = sessionStorage.getItem('token'); // Obtém o token para autenticação
+  const response = await fetch('http://localhost:3000/api/books', {
+    headers: { Authorization: `Bearer ${token}` },
   });
+
+  if (response.ok) {
+    const books = await response.json();
+    const bookList = document.getElementById('bookList');
+    bookList.innerHTML = '';
+
+    books.forEach((book) => {
+      const bookDiv = document.createElement('div');
+      bookDiv.innerHTML = `<strong>${book.title}</strong> - ${book.author} - R$ ${book.price}`;
+      bookList.appendChild(bookDiv);
+    });
+  } else {
+    alert('Erro ao carregar os livros.');
+  }
 }
 
-// Função para listar todos os usuários
+// Função para carregar a lista de usuários
 async function loadUsers() {
-  const response = await fetch('http://localhost:3000/api/users');
-  const users = await response.json();
-
-  const userList = document.getElementById('userList');
-  userList.innerHTML = '';
-
-  users.forEach(user => {
-    const userDiv = document.createElement('div');
-    userDiv.innerHTML = `<strong>${user.name}</strong> - ${user.email}`;
-    userList.appendChild(userDiv);
+  const token = sessionStorage.getItem('token'); // Obtém o token para autenticação
+  const response = await fetch('http://localhost:3000/api/users', {
+    headers: { Authorization: `Bearer ${token}` },
   });
+
+  if (response.ok) {
+    const users = await response.json();
+    const userList = document.getElementById('userList');
+    userList.innerHTML = '';
+
+    users.forEach((user) => {
+      const userDiv = document.createElement('div');
+      userDiv.innerHTML = `<strong>${user.name}</strong> - ${user.email}`;
+      userList.appendChild(userDiv);
+    });
+  } else {
+    alert('Erro ao carregar os usuários.');
+  }
 }
 
-/* 
-// Função para registrar uma transação
-document.getElementById('transactionForm').addEventListener('submit', async (e) => {
-  e.preventDefault();
-
-  const userName = document.getElementById('userName').value;
-  const bookTitle = document.getElementById('bookTitle').value;
-  const amount = document.getElementById('amount').value;
-
-  // Buscar o ID do usuário pelo nome
-  const userResponse = await fetch(`http://localhost:3000/api/users?name=${userName}`);
-  const user = await userResponse.json();
-  
-  if (!user || user.length === 0) {
-    alert('Usuário não encontrado');
-    return;
+// Inicializar controles com base na sessão
+document.addEventListener('DOMContentLoaded', () => {
+  const token = sessionStorage.getItem('token');
+  toggleSessionControls(!!token);
+  if (token) {
+    loadBooks();
+    loadUsers();
   }
-
-  // Buscar o ID do livro pelo título
-  const bookResponse = await fetch(`http://localhost:3000/api/books?title=${bookTitle}`);
-  const book = await bookResponse.json();
-  
-  if (!book || book.length === 0) {
-    alert('Livro não encontrado');
-    return;
-  }
-
-  // Criar a transação
-  const transactionResponse = await fetch('http://localhost:3000/api/transactions', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      userId: user[0].id,  // Assume que o nome é único
-      bookId: book[0].id,   // Assume que o título é único
-      amount,
-    }),
-  });
-
-  const transaction = await transactionResponse.json();
-  alert(`Transação registrada: ${transaction.userId} comprou ${amount} de ${transaction.bookId}`);
-  loadTransactions();  // Carregar as transações novamente
 });
-
-// Função para listar todas as transações
-async function loadTransactions() {
-  const response = await fetch('http://localhost:3000/api/transactions');
-  const transactions = await response.json();
-
-  const transactionList = document.getElementById('transactionList');
-  transactionList.innerHTML = '';
-
-  transactions.forEach(transaction => {
-    const transactionDiv = document.createElement('div');
-    transactionDiv.innerHTML = `Usuário ID: ${transaction.userId} comprou ${transaction.amount} do Livro ID: ${transaction.bookId}`;
-    transactionList.appendChild(transactionDiv);
-  });
-}
-*/
-
-// Carregar dados iniciais
-loadBooks();
-loadUsers();
-// loadTransactions();  // Comentado pois não há transações no momento
