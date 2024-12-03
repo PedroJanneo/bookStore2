@@ -76,3 +76,9 @@ button:hover {
   color: #777;
   font-size: 14px;
 }
+
+button:hover{
+  background-color: white;
+  color: black;
+  border: solid 1.5px black;
+}
