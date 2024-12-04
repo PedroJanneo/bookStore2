@@ -22,22 +22,25 @@ export class AuthService {
   // Login de usuário
   async loginUser(email: string, password: string): Promise<{ user: User; token: string }> {
     const user = await this.userRepository.getUserByEmail(email);
-  
+
     if (!user) {
-      throw new Error('Usuário não encontrado');
+        throw new Error('Usuário não encontrado');
     }
-  
+
     console.log('Usuário encontrado:', user);  // Verificação do usuário encontrado
     console.log('Senha fornecida:', password);  // Senha fornecida no login
     console.log('Hash da senha armazenado:', user.passwordHash);  // Hash da senha armazenado no banco de dados
-  
+
     const isPasswordValid = await bcrypt.compare(password, user.passwordHash);  // Comparando a senha
     if (!isPasswordValid) {
-      throw new Error('Senha incorreta');
+        throw new Error('Senha incorreta');
     }
-  
-    const token = jwt.sign({ userId: user.id }, 'SEU_SEGREDO_AQUI', { expiresIn: '1h' });
+
+    const token = jwt.sign({ userId: user.id }, 'SEU_SEGREDO_AQUI', { expiresIn: '1h' });  // Gerar o token
+
+    console.log("O token é ", token);  // Agora o token é definido antes do log
+
     return { user, token };
-  }
+}
   
 }
