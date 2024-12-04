@@ -10,6 +10,7 @@ Este projeto é uma API desenvolvida com Node.js, Express e PostgreSQL, focada e
 - bcryptjs (para criptografia de senhas)
 - body-parser (para processamento de requisições)
 - cors (para ligação do BackEnd com o FrontEnd)
+- jwt (geração de token)
 
 
 ## Estrutura do Projeto
